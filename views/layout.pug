@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    meta(name="Keywords" Content="Express, 小当家, 食谱, 菜谱")
+    mata(name="Description" Content="一个使用 Express 搭建的菜谱网站")
+    link(rel="shortcut icon" href="/favicon.ico" type="image/x-icon")
+    link(rel="bookmark" href="/favicon.ico")
+    link(rel="stylesheet" href="/css/bootstrap.min.css")
+    link(rel="stylesheet" href="/summernote/summernote-bs4.css")
+    link(rel="stylesheet" href="/css/main.css")
+    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
+    script(src="/js/jquery-3.3.1.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+    script(src="/js/bootstrap.min.js")
+    script(src="https://unpkg.com/sweetalert/dist/sweetalert.min.js")
+    script(src="/summernote/summernote-bs4.js")
+    script(src="/summernote/lang/summernote-zh-CN.js")
+    block title
+    //- title 小当家——你的私人食谱
+  body
+    nav(class="navbar navbar-expand-lg navbar-light bg-light fixed-top" role="navigation")
+      div(class="container")
+        div(class="navbar-header")
+          button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+            span(class="navbar-toggler-icon")
+          a(class="navbar-brand" href="/")
+            img(width=42 src="/favicon.svg" alt="/favicon.svg")
+            | 小当家
+        div(class="navbar-collapse collapse in" id="navbarSupportedContent" aria-expanded="true")
+          ul(class="navbar-nav mr-auto")
+            li(class="nav-item") 
+              a(class="nav-link" href="/menu/0")
+                img(src="/svg/tray.svg" alt="/svg/cooker.svg" style="width: 1.5rem")
+                | &nbsp;所有菜谱 
+            li(class="nav-item") 
+              a(class="nav-link" href="/article")
+                img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
+                | &nbsp;所有文章
+            li(class="nav-item")
+              a(class="nav-link" href="/user")
+                img(src="/svg/chef.svg" alt="/svg/chef.svg" style="width: 1.5rem")
+                | &nbsp;小当家们
+          form(class="form-inline my-auto mr-2" action="/search" method="get")
+            input(class="form-control mr-sm-2"  type="search" placeholder="请输入要搜索的菜名" aria-label="Search" name="foodName" required)
+            input(type="hidden" name="pn" value=0)
+            button(class="btn btn-outline-success my-2 my-sm-0" type="submit") 搜索
+          a(class="btn btn-outline-success mr-5" href="/random") 试试手气
+
+          ul(class="navbar-nav mr-2")
+            if navAvatar
+              li(class="nav-item dropdown")                
+                a(class="dropdown-toggle " href="#" id="audience" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                  span(class="font-weight-bold") #{ navUsername } &nbsp;
+                  img(src=navAvatar alt="navAvatar" style="width: 2rem")
+                div(class="dropdown-menu" aria-labelledby="audience")
+                  a(class="dropdown-item" href="/user/0") 个人中心
+                  a(class="dropdown-item" href="/article/0") 发表文章
+                  a(class="dropdown-item" href="/user/setting") 设置
+                  a(class="dropdown-item text-danger" href="/logout") 退出登录
+            else 
+              li(class="nav-item mr-auto") 
+                a(class="btn btn-outline-primary" href="/login") 登录
+                //- a(class="btn btn-outline-success ml-2" href="/register") 注册
+
+    p(style="height: 80px")
+    - for (var x = 0; x < errors.length; x++) 
+      div(class="alert alert-danger text-center" role="alert") #{ errors[x] }
+    - for (var j = 0; j < infos.length; j++) 
+      div(class="alert alert-success text-center" role="alert") #{ infos[j] }
+      
+    .alert.alert-danger.text-center.font-weight-bold 注意：API 次数到了，不能查询菜谱了，只能查看已有的 “所有菜谱”，求位 dalao 赞助打赏。
+
+    block content
+
+    footer
+      pre(class="text-center font-weight-light bg-dark py-5 mt-2 mb-0 text-light")
+        span IP 为： #{ ip } &nbsp;
+        span 所处国家为： #{ country } &nbsp;
+        span 所处地区为： #{ area } &nbsp;
+        span 所处省份为： #{ region } &nbsp;
+        span 所处城市为： #{ city } &nbsp;
+        span 时间为： #{ date.getHours() } 时 #{ date.getMinutes() } 分 &nbsp;
+        p(class="mt-2") Created By &copy; 2018 
+          a(href="http://venusworld.cn" class="text-warning") Venus
+          | &nbsp;with&nbsp;
+          img(src="/svg/heart.svg" alt="/svg/heart.svg" style="width: 1.5rem")
+        small Icons made by 
+          a(href="http://www.freepik.com" title="Freepik" class="text-success") Freepik
+          | &nbsp;from 
+          a(href="https://www.flaticon.com/" title="Flaticon" class="text-danger") www.flaticon.com
+          | &nbsp;is licensed by 
+          a(href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" class="text-secondary") CC 3.0 BY
+        p.text.center 本站部署于 
+          a(href="https://m.do.co/c/a19754b1269e") DigitalOcean 
+          span ，←点击左边地址注册即可获取 $ 10 
+    script(src="/js/config.js")
+    script(type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5aded2b7ff6b5a86")
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    script(async src="https://www.googletagmanager.com/gtag/js?id=UA-118652906-1")
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-118652906-1');
