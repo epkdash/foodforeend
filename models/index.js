@@ -62,37 +62,20 @@
 // };
 //
 
+const menuData = require('../testdata/menudata');
 
 const Menu = {
-	findAll: function () {
-		return new Promise(function (resolve) {
-			setTimeout(function () {
-				resolve(
-					[
-						{
-							id: 1000,
-							title: 'xxx',
-							tags: 'x',
-							imtro: '食谱简介asdfas',
-							ingredients: '原料xxasfasfd',
-							burden: '食谱佐料asfdasdfas',
-							albums: '食谱封面图像fasdfas',
-							steps: '食谱步骤fawefawef'
-						},
-						{
-							id: 1001,
-							title: 'yyy',
-							tags: 'y',
-							imtro: '食谱简介afafsdfas',
-							ingredients: '原料xxasfeeewaasfd',
-							burden: '食谱佐料asfdasfawdfas',
-							albums: '食谱封面图像fasdcawwefas',
-							steps: '食谱步骤fawefawefawawef'
-						}]
-				);
-			}, 1000);
-		});
-	}
+	findAll: function (params) {
+		console.log('params:', params);
+		return menuData.getMenus();
+	},
+    findRandom: function (params) {
+        console.log('params:', params);
+        return menuData.getRandomMenus();
+    },
+	findOne: function (mId) {
+        return menuData.getOneMenu(mId);
+    }
 };
 const User = {};
 const Captcha = {};

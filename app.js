@@ -20,9 +20,9 @@ const logout = require('./routes/logout');
 const register = require('./routes/register');
 const user = require('./routes/user');
 const password = require('./routes/password');
-const category = require('./routes/category');
+// const category = require('./routes/category');
 const menu = require('./routes/menu');
-const article = require('./routes/article');
+// const article = require('./routes/article');
 
 let app = express();
 let server = http.createServer(app);
@@ -65,128 +65,6 @@ app.use(function(req, res, next) {
 	next();
 });
 
-/**
- * 转换 IP 地址为真实地址，获取时间
- */
-app.use(function(req, res, next) {
-	let ip =  req.ip.split(':')[req.ip.split(':').length-1];
-	axios({
-		method: 'get',
-		url: `http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`,
-		responseType: 'json',
-		timeout: 10000,
-	}).then(response => {
-		const date = new Date();
-		res.locals.date = date;
-		const random = Math.floor(Math.random() * 100);
-		if (date.getHours() < 1) {
-			res.locals.recommand = `${cool()} 夜深了，要吃点夜宵吗？`;
-			res.locals.recommandUrl = `/category/41/${random}`;
-		} else if (date.getHours() >= 1 && date.getHours() <= 5) {
-			res.locals.recommand = `${cool()} 这么晚了，还不睡？`;
-			res.locals.recommandUrl = `/category/41/${random}`;
-		} else if (date.getHours() <= 10) {
-			res.locals.recommand = `${cool()} 早上好，没吃早餐吧。`;
-			res.locals.recommandUrl = `/category/37/${random}`;
-		} else if (date.getHours() <= 14) {
-			res.locals.recommand = `${cool()} 中午好，吃午餐了吗？`;
-			res.locals.recommandUrl = `/category/38/${random}`;
-		} else if (date.getHours() <= 16) {
-			res.locals.recommand = `${cool()} 下午好，要喝点下午茶吗？`;
-			res.locals.recommandUrl = `/category/39/${random}`;
-		} else if (date.getHours() <= 21) {
-			res.locals.recommand = `${cool()} 晚上好，吃晚餐了吗？`;
-			res.locals.recommandUrl = `/category/40/${random}`;
-		} else {
-			res.locals.recommand = `${cool()} 夜深了，要吃点夜宵吗？`;
-			res.locals.recommandUrl = `/category/41/${random}`;
-		}
-		if (response.data.code === 0) {
-			const { ip, country, city, area, region } = response.data.data;
-	
-			res.locals.ip = ip;
-			res.locals.country = country;
-			res.locals.area = area;
-			res.locals.region = region;
-			res.locals.city = city;
-
-			const region2cid = {
-				四川: 10,
-				广东: 11,
-				湖南: 12,
-				山东: 13,
-				北京: 14,
-				东北: 15,
-				黑龙江: 15,
-				辽宁: 15,
-				吉林: 15,
-				日本: 17,
-				美国: 16,
-				韩国: 18,
-				福建: 101,
-				浙江: 102,
-				江苏: 104,
-				安徽: 105,
-				河南: 107,
-				河北: 107,
-				山西: 108,
-				江西: 109,
-				湖北: 110,
-				云南: 112,
-				贵州: 113,
-				新疆: 114,
-				香港: 118,
-				台湾: 119,
-				海南: 126,
-				上海: 115,
-			};
-
-			res.locals.cid = typeof region2cid[region] === 'undefined' ? 'notfound': region2cid[region];
-	
-			next();
-		} else {
-			res.locals.ip = req.ip;
-			res.locals.country = 
-			res.locals.city = 
-			res.locals.area = 
-			res.locals.region = false;
-			next();
-		}
-	}).catch(err => {
-		const date = new Date();
-		res.locals.date = date;
-		const random = Math.floor(Math.random() * 100);
-		if (date.getHours() < 1) {
-			res.locals.recommand = `${cool()} 夜深了，要吃点夜宵吗？`;
-			res.locals.recommandUrl = `/category/41/${random}`;
-		} else if (date.getHours() >= 1 && date.getHours() <= 5) {
-			res.locals.recommand = `${cool()} 这么晚了，还不睡？`;
-			res.locals.recommandUrl = `/category/41/${random}`;
-		} else if (date.getHours() <= 10) {
-			res.locals.recommand = `${cool()} 早上好，没吃早餐吧。`;
-			res.locals.recommandUrl = `/category/37/${random}`;
-		} else if (date.getHours() <= 14) {
-			res.locals.recommand = `${cool()} 中午好，吃午餐了吗？`;
-			res.locals.recommandUrl = `/category/38/${random}`;
-		} else if (date.getHours() <= 16) {
-			res.locals.recommand = `${cool()} 下午好，要喝点下午茶吗？`;
-			res.locals.recommandUrl = `/category/39/${random}`;
-		} else if (date.getHours() <= 21) {
-			res.locals.recommand = `${cool()} 晚上好，吃晚餐了吗？`;
-			res.locals.recommandUrl = `/category/40/${random}`;
-		} else {
-			res.locals.recommand = `${cool()} 夜深了，要吃点夜宵吗？`;
-			res.locals.recommandUrl = `/category/41/${random}`;
-		}
-		res.locals.ip = req.ip;
-		res.locals.country =
-		res.locals.city = 
-		res.locals.area = 
-		res.locals.region = false;
-		next();
-	});
-});
-
 app.use('/', index);
 app.use('/search', search);
 app.use('/detail', detail);
@@ -195,9 +73,9 @@ app.use('/logout', logout);
 app.use('/register', register);
 app.use('/user', user);
 app.use('/password', password);
-app.use('/category', category);
+// app.use('/category', category);
 app.use('/menu', menu);
-app.use('/article', article);
+// app.use('/article', article);
 
 
 // catch 404
