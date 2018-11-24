@@ -8,7 +8,8 @@ router.get('/', function (req, res) {
         res.locals.currentUser = req.session.user;
     }
     res.locals.menus = [];
-    Menu.findRandom({num: 7}).then(menus => {
+    Menu.findRandom({limit: 7}).then(rsp => {
+        let menus = rsp.data
         if (menus.length === 0) {
             req.flash('error', '暂时没有菜谱');
         } else {
@@ -17,7 +18,6 @@ router.get('/', function (req, res) {
             menus.forEach((value, index) => {
                 res.locals.menus.push(menus[index]);
             });
-            console.log('res.locals.menus', res.locals.menus)
             res.render('index');
         }
     });

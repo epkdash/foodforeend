@@ -8,8 +8,6 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
-const axios = require('axios');
-const cool = require('cool-ascii-faces');
 const { PORT } = require('./utilities/const');
 
 const index = require('./routes/index');
@@ -23,6 +21,10 @@ const password = require('./routes/password');
 // const category = require('./routes/category');
 const menu = require('./routes/menu');
 // const article = require('./routes/article');
+const about = require('./routes/about');
+const contactus = require('./routes/contactus');
+
+
 
 let app = express();
 let server = http.createServer(app);
@@ -76,6 +78,8 @@ app.use('/password', password);
 // app.use('/category', category);
 app.use('/menu', menu);
 // app.use('/article', article);
+app.use('/about', about)
+app.use('/contactus', contactus);
 
 
 // catch 404

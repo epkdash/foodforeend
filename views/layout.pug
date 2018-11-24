@@ -36,33 +36,33 @@ html(lang="en")
                 img(src="/svg/tray.svg" alt="/svg/cooker.svg" style="width: 1.5rem")
                 | &nbsp;Home
             li(class="nav-item") 
-              a(class="nav-link" href="/menu/0")
+              a(class="nav-link" href="/menu/random/9")
                 img(src="/svg/tray.svg" alt="/svg/cooker.svg" style="width: 1.5rem")
                 | &nbsp;Recipe
             li(class="nav-item") 
-              a(class="nav-link" href="/article")
+              a(class="nav-link" href="/about")
                 img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
                 | &nbsp;About
             li(class="nav-item")
-              a(class="nav-link" href="/user")
+              a(class="nav-link" href="/contactus")
                 img(src="/svg/chef.svg" alt="/svg/chef.svg" style="width: 1.5rem")
                 | &nbsp;Contact us
           form(class="form-inline my-auto mr-2" action="/search" method="get")
             input(class="form-control mr-sm-2"  type="search" placeholder="请输入要搜索的菜名" aria-label="Search" name="foodName" required)
-            input(type="hidden" name="pn" value=0)
+            //input(type="hidden" name="pn" value=0)
             button(class="btn btn-outline-success my-2 my-sm-0" type="submit") 搜索
           //a(class="btn btn-outline-success mr-5" href="/random") 试试手气
 
           ul(class="navbar-nav mr-2")
-            if navAvatar
+            if navUsername
               li(class="nav-item dropdown")                
                 a(class="dropdown-toggle " href="#" id="audience" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
                   span(class="font-weight-bold") #{ navUsername } &nbsp;
-                  img(src=navAvatar alt="navAvatar" style="width: 2rem")
+                  //img(src=navAvatar alt="navAvatar" style="width: 2rem")
                 div(class="dropdown-menu" aria-labelledby="audience")
-                  a(class="dropdown-item" href="/user/0") 个人中心
-                  a(class="dropdown-item" href="/article/0") 发表文章
-                  a(class="dropdown-item" href="/user/setting") 设置
+                  //a(class="dropdown-item" href="/user/0") 个人中心
+                  //a(class="dropdown-item" href="/article/0") 发表文章
+                  //a(class="dropdown-item" href="/user/setting") 设置
                   a(class="dropdown-item text-danger" href="/logout") 退出登录
             else
               li(class="nav-item mr-auto") 

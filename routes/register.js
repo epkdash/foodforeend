@@ -14,8 +14,8 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
     const {email, account, password, passwordConfirm, gender, captcha} = req.body;
-    if (captcha !== req.session.captcha) {
-        req.flash('error', '验证码错误！注意区分大小写');
+    if (captcha.toUpperCase() !== req.session.captcha.toUpperCase()) {
+        req.flash('error', '验证码错误！');
         res.redirect('/register');
     } else if (password !== passwordConfirm) {
         req.flash('error', '两次密码不一致');
@@ -29,68 +29,53 @@ router.post('/', function (req, res) {
     } else {
         const CAPTCHA = Math.floor(100000 + Math.random() * 899999);
 
-        User.findOne({where: {account}})
-            .then(user => {
+        User.findOne(account)
+            .then(rsp => {
+                let user = rsp.data
                 if (user) {
                     req.flash('error', '用户已存在');
                     res.redirect('/register');
                 } else {
-                    const avatar = gender === '男' ? AVATAR_BOY : AVATAR_GIRL;
-                    const intGender = gender === '男' ? 1 : 0;
+                    // const avatar = gender === '男' ? AVATAR_BOY : AVATAR_GIRL;
+                    const strGender = gender === '男' ? 'M' : 'F';
 
                     User.create({
                         email,
                         account,
                         username: account,
                         password: password,
-                        avatar,
-                        gender: intGender
-                    }).then(user => {
-                        // let transporter = nodemailer.createTransport({
-                        // 	host: 'smtp.163.com',
-                        // 	port: 465,
-                        // 	secure: true,
-                        // 	auth: {
-                        // 		user: EMAIL_ACCOUNT,
-                        // 		pass: EMAIL_PASS
-                        // 	}
-                        // });
+                        avatar: '',
+                        gender: strGender,
+                        intro: ''
+                    }).then(rsp => {
+                        let user = rsp.data;
 
-                        const msg = {
-                            to: email,
-                            from: '"小当家" <venus@venusworld.cn>',
-                            subject: '小当家注册验证',
-                            html: `<p>${user.dataValues.username}：</p><p>&nbsp;&nbsp;请点击以下链接完成邮箱验证：</p><p><a href="${CLOUD_HOSTNAME}:${PORT}/confirmEmail?captcha=${CAPTCHA}&email=${email}&account=${account}">${CLOUD_HOSTNAME}:${PORT}/confirmEmail?captcha=${CAPTCHA}&email=${email}&account=${account}</a></p><p>如果以上链接无法点击，请将上面的地址复制到你的浏览器地址栏。</p>`
-                        };
-
-                        // const mailOption = {
-                        // 	from: `"小当家" <${EMAIL_ACCOUNT}>`,
-                        // 	to: email,
-                        // 	subject: '小当家注册验证',
-                        // 	html: `<p>${user.dataValues.username}：</p><p>&nbsp;&nbsp;请点击以下链接完成邮箱验证：</p><p><a href="${CLOUD_HOSTNAME}:${PORT}/confirmEmail?captcha=${CAPTCHA}&email=${email}&account=${account}">${CLOUD_HOSTNAME}:${PORT}/confirmEmail?captcha=${CAPTCHA}&email=${email}&account=${account}</a></p><p>如果以上链接无法点击，请将上面的地址复制到你的浏览器地址栏。</p>`
+                        // const msg = {
+                        //     to: email,
+                        //     from: '"小当家" <venus@venusworld.cn>',
+                        //     subject: '小当家注册验证',
+                        //     html: `<p>${user.dataValues.username}：</p><p>&nbsp;&nbsp;请点击以下链接完成邮箱验证：</p><p><a href="${CLOUD_HOSTNAME}:${PORT}/confirmEmail?captcha=${CAPTCHA}&email=${email}&account=${account}">${CLOUD_HOSTNAME}:${PORT}/confirmEmail?captcha=${CAPTCHA}&email=${email}&account=${account}</a></p><p>如果以上链接无法点击，请将上面的地址复制到你的浏览器地址栏。</p>`
                         // };
 
-                        const timestamp = new Date().getTime();
-                        Captcha.create({
-                            timestamp,
-                            used: false,
-                            value: CAPTCHA,
-                            userId: user.dataValues.id
-                        }).then(() => {
-                            // transporter.sendMail(mailOption, (error) => {
-                            sgMail.send(msg).then(() => {
-                                // req.session.user = user.dataValues;
-                                // req.session.user.following = [];
-                                // req.session.user.followers = [];
-                                req.session.account = user.dataValues.account;
-                                req.flash('info', '注册成功，请验证邮箱后再登录。');
+                        // const timestamp = new Date().getTime();
+                        // Captcha.create({
+                        //     timestamp,
+                        //     used: false,
+                        //     value: CAPTCHA,
+                        //     userId: user.dataValues.id
+                        // }).then(() => {
+                        //     sgMail.send(msg).then(() => {
+                                req.session.account = user.account;
+                                req.flash('info', '注册成功，请登录。');
                                 res.redirect('/login');
-                            }).catch(error => {
-                                console.log(error);
-                                req.flash('error', '注册出错！');
-                                res.redirect('/');
-                            });
-                        });
+                        //     }).catch(error => {
+                        //         console.log(error);
+                        //         req.flash('error', '注册出错！');
+                        //         res.redirect('/');
+                        //     });
+                        // });
+
+
                     });
                 }
             });

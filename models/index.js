@@ -62,40 +62,81 @@
 // };
 //
 
-const menuData = require('../testdata/menudata');
+const axios = require('axios');
+// const menuData = require('../testdata/menudata');
+const {BASE_URL} = require('../utilities/const');
+
 
 const Menu = {
-	findAll: function (params) {
-		console.log('params:', params);
-		return menuData.getMenus();
-	},
-    findRandom: function (params) {
-        console.log('params:', params);
-        return menuData.getRandomMenus();
+    findAll: function (params) {
+        // return menuData.getMenus();
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/menus',
+            headers: {'Accept': 'application/json'}
+        })
     },
-	findOne: function (mId) {
-        return menuData.getOneMenu(mId);
+    findRandom: function ({limit}) {
+        // return menuData.getRandomMenus();
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/menus/random/limit/' + limit.toString(),
+            headers: {'Accept': 'application/json'}
+        })
+    },
+    findOne: function (mId) {
+        // return menuData.getOneMenu(mId);
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/menu/' + mId.toString(),
+            headers: {'Accept': 'application/json'}
+        })
+    },
+    findMenuByType: function ({type}) {
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/menus/type/' + type,
+            headers: {'Accept': 'application/json'}
+        })
     }
 };
-const User = {};
+const User = {
+    findOne: function (account) {
+        // return menuData.getOneMenu(mId);
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/user/' + account,
+            headers: {'Accept': 'application/json'}
+        })
+    },
+    create: function (data) {
+        // return menuData.getOneMenu(mId);
+        return axios({
+            method: 'post',
+            data: data,
+            url: BASE_URL + '/user',
+            headers: {'Accept': 'application/json'}
+        })
+    },
+};
 const Captcha = {};
-const Comment = {};
-const Article = {};
-const ArticleComment = {};
-const UserMenu = {};
-const UserArticle = {};
-const UserFollowers = {};
-const UserFollowing = {};
+// const Comment = {};
+// const Article = {};
+// const ArticleComment = {};
+// const UserMenu = {};
+// const UserArticle = {};
+// const UserFollowers = {};
+// const UserFollowing = {};
 
 module.exports = {
-	User,
-	Captcha,
-	Menu,
-	Comment,
-	Article,
-	ArticleComment,
-	UserMenu,
-	UserFollowing,
-	UserFollowers,
-	UserArticle
+    User,
+    Captcha,
+    Menu
+    // Comment,
+    // Article,
+    // ArticleComment,
+    // UserMenu,
+    // UserFollowing,
+    // UserFollowers,
+    // UserArticle
 };

@@ -1,7 +1,7 @@
 extends layout
 
 block title
-  title 登录 —— 小当家
+  title 登录 —— 食谱网
 
 block content
   div(class="container")
@@ -13,8 +13,8 @@ block content
             a(class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true") 登录
           li(class="nav-item")
             a(class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false") 注册
-          li(class="nav-item")
-            a(class="nav-link" id="forget-password-tab" data-toggle="tab" href="#forget-password" role="tab" aria-controls="forget-password" aria-selected="false") 找回密码
+          //li(class="nav-item")
+          //  a(class="nav-link" id="forget-password-tab" data-toggle="tab" href="#forget-password" role="tab" aria-controls="forget-password" aria-selected="false") 找回密码
         div(class="tab-content" id="myTabContent")
           div(class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab")
             form(action="/login", method="post")
@@ -49,32 +49,32 @@ block content
                 option(value="女" class="dropdown-item")
               hr
               input(type="text" class="form-control" id="captcha" name="captcha" required placeholder="验证码(区分大小写)")
-              != captcha.data 
+              != captcha.data
               button(type="submit" class="btn btn-primary") 注册
 
-          div(class="tab-pane fade" id="forget-password" role="tabpanel" aria-labelledby="forget-password-tab")
-            if email
-              form(action="/password", method="post")
-                input(type="text" class="form-control my-2" id="account" name="account" required value=account minlength="5" maxlength="16")
-                input(type="email" class="form-control my-2" id="email" name="email" required value=email)    
-                input(type="password" class="form-control my-2" id="password" name="password" value=password required minlength="8" maxlength="16")
-                input(type="password" class="form-control my-2" id="passwordConfirm" name="passwordConfirm" value=passwordConfirm required minlength="8" maxlength="16")
-                hr
-                div
-                  button(type="submit" class="btn btn-primary mb-2" disabled) 获取邮箱验证码    
-                input(type="text" class="form-control" id="emailCaptcha" name="emailCaptcha" placeholder="请填写邮件收到的验证码") 
-                button(type="submit" class="btn btn-primary my-2") 确认重置密码
-            else 
-              form(action="/password", method="post")
-                input(type="text" class="form-control my-2" id="account" name="account" required autofocus="autofocus" placeholder="账号" minlength="5" maxlength="16")
-                input(type="email" class="form-control my-2" id="email" name="email" required placeholder="邮箱")
-                input(type="password" class="form-control my-2" id="password" name="password" placeholder="新密码" required minlength="8" maxlength="16")
-                input(type="password" class="form-control my-2" id="passwordConfirm" name="passwordConfirm" placeholder="确认新密码" required minlength="8" maxlength="16")
-                hr
-                div
-                  button(type="submit" class="btn btn-primary mb-2") 获取邮箱验证码
-                input(type="text" class="form-control" id="emailCaptcha" name="emailCaptcha" placeholder="请填写邮件收到的验证码") 
-                button(type="submit" class="btn btn-primary my-2" disabled) 确认重置密码
+          //div(class="tab-pane fade" id="forget-password" role="tabpanel" aria-labelledby="forget-password-tab")
+          //  if email
+          //    form(action="/password", method="post")
+          //      input(type="text" class="form-control my-2" id="account" name="account" required value=account minlength="5" maxlength="16")
+          //      input(type="email" class="form-control my-2" id="email" name="email" required value=email)
+          //      input(type="password" class="form-control my-2" id="password" name="password" value=password required minlength="8" maxlength="16")
+          //      input(type="password" class="form-control my-2" id="passwordConfirm" name="passwordConfirm" value=passwordConfirm required minlength="8" maxlength="16")
+          //      hr
+          //      div
+          //        button(type="submit" class="btn btn-primary mb-2" disabled) 获取邮箱验证码
+          //      input(type="text" class="form-control" id="emailCaptcha" name="emailCaptcha" placeholder="请填写邮件收到的验证码")
+          //      button(type="submit" class="btn btn-primary my-2") 确认重置密码
+          //  else
+          //    form(action="/password", method="post")
+          //      input(type="text" class="form-control my-2" id="account" name="account" required autofocus="autofocus" placeholder="账号" minlength="5" maxlength="16")
+          //      input(type="email" class="form-control my-2" id="email" name="email" required placeholder="邮箱")
+          //      input(type="password" class="form-control my-2" id="password" name="password" placeholder="新密码" required minlength="8" maxlength="16")
+          //      input(type="password" class="form-control my-2" id="passwordConfirm" name="passwordConfirm" placeholder="确认新密码" required minlength="8" maxlength="16")
+          //      hr
+          //      div
+          //        button(type="submit" class="btn btn-primary mb-2") 获取邮箱验证码
+          //      input(type="text" class="form-control" id="emailCaptcha" name="emailCaptcha" placeholder="请填写邮件收到的验证码")
+          //      button(type="submit" class="btn btn-primary my-2" disabled) 确认重置密码
         
         //- h5 登录
         //- form(action="/login", method="post")

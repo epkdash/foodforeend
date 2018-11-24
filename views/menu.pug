@@ -1,7 +1,7 @@
 extends layout
 
 block title
-  title 菜谱
+  title 菜谱 —— 食谱网
 
 block content
   div(class="container")
@@ -15,31 +15,31 @@ block content
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
           | &nbsp;Meat
       li(role="presentation")
-        a(href="/article")
+        a(href="/menu/seafood/0")
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
           | &nbsp;Seafood
       li(role="presentation")
-        a(href="/user")
+        a(href="/menu/vagetable/0")
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
           | &nbsp;Vagetable
       li(role="presentation")
-        a(href="/user")
+        a(href="/menu/dessert/0")
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
           | &nbsp;Dessert
       li(role="presentation")
-        a(href="/user")
+        a(href="/menu/soup/0")
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
           | &nbsp;Soup
       li(role="presentation")
-        a(href="/user")
+        a(href="/menu/lightfood/0")
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
-          | &nbsp;Shoushenmeirong
+          | &nbsp;Lightfood
       li(role="presentation")
-        a(href="/user")
+        a(href="/menu/healthyfood/0")
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
-          | &nbsp;Yangshen
+          | &nbsp;Healthy Food
       li(role="presentation")
-        a(href="/user")
+        a(href="/menu/internationalfood/0")
           img(src="/svg/article.svg" alt="/svg/article.svg" style="width: 1.5rem")
           | &nbsp;International Food
     hr
@@ -54,56 +54,56 @@ block content
             - for (var j = 0; j < menus[i].tags.length; j++)
               span(class="badge badge-pill badge-info my-1" style="font-size: 1rem") #{ menus[i].tags[j] }
               | &nbsp;
-    hr
-    nav(aria-label="Page navigation example")
-      ul(class="pagination justify-content-center")
-        if offset === 0
-          li(class="page-item disabled")
-            a(class="page-link" href=`/menu/${offset}` tabindex="-1") 上一页
-        else
-          li(class="page-item")
-            a(class="page-link" href=`/menu/${offset-100}` tabindex="-1") 上一页
-
-        if totalNumPage >= 20
-          if offset < 300
-            - for (var k = 0; k < 5; k++)
-              if k === offset/100
-                li(class="page-item active")
-                  a(class="page-link" href=`/menu/${k * 100}`) #{ k+1 }
-                    span(class="sr-only") (current)
-              else
-                li(class="page-item")
-                  a(class="page-link" href=`/menu/${k * 100}`) #{ k+1 }
-          else
-            li(class="page-item")
-              a(class="page-link" href=`/menu/0`) 1
-            li(class="page-item disabled")
-              a(class="page-link" href=`#`) ...
-            - for (var j = offset/100-2; j < (offset/100+3 > totalNumPage? totalNumPage: offset/100+3) ; j++)
-              if  j === offset/100
-                li(class="page-item active")
-                  a(class="page-link" href=`/menu/${j * 100}`) #{ j+1 }
-                    span(class="sr-only") (current)
-              else
-                li(class="page-item")
-                  a(class="page-link" href=`/menu/${j * 100}`) #{ j+1 }
-          li(class="page-item disabled")
-            a(class="page-link" href=`#`) ...
-          li(class="page-item")
-            a(class="page-link" href=`/menu/${(totalNumPage-1)* 100}`) #{ totalNumPage }
-        else
-          - for (var i = 0; i < totalNumPage; i++)
-            if i === offset / 100
-              li(class="page-item active")
-                a(class="page-link" href=`/menu/${i * 100}`) #{ i+1 }
-                  span(class="sr-only") (current)
-            else
-              li(class="page-item")
-                a(class="page-link" href=`/menu/${i * 100}`) #{ i+1 }
-
-        if offset === (i-1) * 100
-          li(class="page-item disabled")
-            a(class="page-link" href="#") 下一页
-        else
-          li(class="page-item")
-            a(class="page-link" href=`/menu/${offset + 100}`) 下一页
+    //hr
+    //nav(aria-label="Page navigation example")
+    //  ul(class="pagination justify-content-center")
+    //    if offset === 0
+    //      li(class="page-item disabled")
+    //        a(class="page-link" href=`/menu/${offset}` tabindex="-1") 上一页
+    //    else
+    //      li(class="page-item")
+    //        a(class="page-link" href=`/menu/${offset-100}` tabindex="-1") 上一页
+    //
+    //    if totalNumPage >= 20
+    //      if offset < 300
+    //        - for (var k = 0; k < 5; k++)
+    //          if k === offset/100
+    //            li(class="page-item active")
+    //              a(class="page-link" href=`/menu/${k * 100}`) #{ k+1 }
+    //                span(class="sr-only") (current)
+    //          else
+    //            li(class="page-item")
+    //              a(class="page-link" href=`/menu/${k * 100}`) #{ k+1 }
+    //      else
+    //        li(class="page-item")
+    //          a(class="page-link" href=`/menu/0`) 1
+    //        li(class="page-item disabled")
+    //          a(class="page-link" href=`#`) ...
+    //        - for (var j = offset/100-2; j < (offset/100+3 > totalNumPage? totalNumPage: offset/100+3) ; j++)
+    //          if  j === offset/100
+    //            li(class="page-item active")
+    //              a(class="page-link" href=`/menu/${j * 100}`) #{ j+1 }
+    //                span(class="sr-only") (current)
+    //          else
+    //            li(class="page-item")
+    //              a(class="page-link" href=`/menu/${j * 100}`) #{ j+1 }
+    //      li(class="page-item disabled")
+    //        a(class="page-link" href=`#`) ...
+    //      li(class="page-item")
+    //        a(class="page-link" href=`/menu/${(totalNumPage-1)* 100}`) #{ totalNumPage }
+    //    else
+    //      - for (var i = 0; i < totalNumPage; i++)
+    //        if i === offset / 100
+    //          li(class="page-item active")
+    //            a(class="page-link" href=`/menu/${i * 100}`) #{ i+1 }
+    //              span(class="sr-only") (current)
+    //        else
+    //          li(class="page-item")
+    //            a(class="page-link" href=`/menu/${i * 100}`) #{ i+1 }
+    //
+    //    if offset === (i-1) * 100
+    //      li(class="page-item disabled")
+    //        a(class="page-link" href="#") 下一页
+    //    else
+    //      li(class="page-item")
+    //        a(class="page-link" href=`/menu/${offset + 100}`) 下一页

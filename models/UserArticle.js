@@ -1,5 +1,5 @@
-module.exports = function(sequelize) {
-	return sequelize.define('userArticle', {
-
-	});
-};
+// module.exports = function(sequelize) {
+// 	return sequelize.define('userArticle', {
+//
+// 	});
+// };

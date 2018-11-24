@@ -1,4 +1,6 @@
-const BASE_URL = 'http://apis.juhe.cn/cook/query?';
+const BASE_URL = 'http://127.0.0.1:8089/api/v1';
+//'http://47.107.236.20:8089';
+
 const CATEGORY_URL = 'http://apis.juhe.cn/cook/index?';
 const PORT = 3000;
 const HOSTNAME = 'http://localhost';

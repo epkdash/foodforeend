@@ -15,7 +15,8 @@ router.get('/:id', function (req, res) {
     }
 
     Menu.findOne(id)
-        .then(menu => {
+        .then(rsp => {
+            let menu = rsp.data
             if (!menu) {
                 req.flash('error', '菜谱不存在');
                 res.redirect('/');
