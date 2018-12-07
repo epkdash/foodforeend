@@ -1,22 +1,21 @@
-//extends layout
-//
-//block title
-//  title 用户 —— 小当家
-//
-//block content
-//  div(class="container")
-//    div(class="card-columns")
-//      - for (let i = 0; i < users.length; i++)
-//        div(class="card")
-//          a(href=`/user/${users[i].id}` class="")
-//            img(class="rounded card-img-top" src=users[i].avatar alt="Card image cap")
-//          div(class="card-body")
-//            a(href=`/user/${users[i].id}` class="")
-//              h5(class="card-title") #{ users[i].username } &nbsp;
-//            p(class="card-text") #{ users[i].intro }
-//            p
-//              | 关注：
-//              span(class="text-info") #{ users[i].following } &nbsp;&nbsp;
-//              | 粉丝：
-//              span(class="text-info") #{ users[i].followers }
-//
+extends layout
+
+block title
+  title 用户 —— 小当家
+
+block content
+  div(class="container")
+    div(class="card-columns")
+      - for (let i = 0; i < users.length; i++)
+        div(class="card")
+          a(href=`/user/${users[i].id}` class="")
+            img(class="rounded card-img-top" src=users[i].avatar alt="Card image cap")
+          div(class="card-body")
+            a(href=`/user/${users[i].id}` class="")
+              h5(class="card-title") #{ users[i].username } &nbsp;
+            p(class="card-text") #{ users[i].intro }
+            p
+              | 关注：
+              span(class="text-info") #{ users[i].following } &nbsp;&nbsp;
+              | 粉丝：
+              span(class="text-info") #{ users[i].followers }
