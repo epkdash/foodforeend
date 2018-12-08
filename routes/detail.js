@@ -62,8 +62,6 @@ router.get('/add-user-menu/:id', function (req, res) {
 });
 
 router.post('/add-comment', function (req, res) {
-    // const {account, menuId, comment} = ;
-    console.log(req.body)
     Comment.createComment(req.body).then(() => {
         res.redirect("/detail/" + req.body.menuId);
     }).catch(e=>{

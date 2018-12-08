@@ -45,18 +45,10 @@ block content
         ul(class="nav nav-tabs" id="myTab" role="tablist")
           li(class="nav-item")
             a(class="nav-link active" id="collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="collection" aria-selected="true") 收藏食谱
-          //li(class="nav-item")
-          //  a(class="nav-link" id="collectedArticle-tab" data-toggle="tab" href="#collectedArticle" role="tab" aria-controls="collectedArticle" aria-selected="false") 收藏文章
-          //li(class="nav-item")
-          //  a(class="nav-link" id="article-tab" data-toggle="tab" href="#article" role="tab" aria-controls="article" aria-selected="false") 文章
-          //li(class="nav-item")
-          //  a(class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false") 关注
-          //li(class="nav-item")
-          //  a(class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false") 粉丝
+          li(class="nav-item")
+            a(class="nav-link" id="uploadMenu-tab" data-toggle="tab" href="#updateMenu" role="tab" aria-controls="updateMenu" aria-selected="false") 上传食谱
           li(class="nav-item")
             a(class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false") 食谱评论
-          //li(class="nav-item")
-          //  a(class="nav-link" id="articleComment-tab" data-toggle="tab" href="#articleComment" role="tab" aria-controls="articleComment" aria-selected="false") 文章评论
         div(class="tab-content" id="myTabContent")
           div(class="tab-pane fade show active" id="collection" role="tabpanel" aria-labelledby="collection-tab")
             div(class="card-columns mt-4")
@@ -78,20 +70,58 @@ block content
                             a(href=`/detail/${menus[i].id}` class="btn btn-success") 查看
               else
                 p 没有收藏食谱
-
-
-
+          div(class="tab-pane fade" id="updateMenu" role="tabpanel" aria-labelledby="updateMenu-tab")
+            form(action="/user/add-menu", method="post", enctype="multipart/form-data")
+              div(class="form-group")
+                label(for="pic") photograph
+                input(type="file" class="form-control" id="pic" name="pic" required)
+              div(class="form-group")
+                label(for="title") title
+                input(type="text" class="form-control" id="title" name="title" required minlength="1" maxlength="50")
+              div(class="form-group")
+                label(for="tags") tags 用英文逗号分隔
+                input(type="text" class="form-control" id="tags" name="tags" maxlength="100" autofocus="autofocus")
+              div(class="form-group")
+                label(for="imtro") introduction
+                input(type="text" class="form-control" id="imtro" name="imtro" maxlength="100" autofocus="autofocus")
+              div(class="form-group")
+                label(for="ingredients") ingredients
+                input(type="text" class="form-control" id="ingredients" name="ingredients" maxlength="100" autofocus="autofocus")
+              div(class="form-group")
+                label(for="burden") burden
+                input(type="text" class="form-control" id="burden" name="burden" maxlength="100" autofocus="autofocus")
+              div(class="form-group")
+                label(for="steps") steps 步骤之间用英文逗号分隔
+                input(type="text" class="form-control" id="steps" name="steps" maxlength="100" autofocus="autofocus")
+              div(class="form-group")
+                label(for="type") type
+                input(type="text" class="form-control my-2" name="type" list="type" placeholder="staplefood" required)
+                datalist(id="type"  class="dropdown-menu")
+                  option(value="staplefood" class="dropdown-item")
+                  option(value="vagetable" class="dropdown-item")
+                  option(value="dessert" class="dropdown-item")
+                  option(value="soup" class="dropdown-item")
+                  option(value="lightfood" class="dropdown-item")
+                  option(value="healthyfood" class="dropdown-item")
+                  option(value="internationalfood" class="dropdown-item")
+                  option(value="staplefood" class="dropdown-item")
+                  option(value="meat" class="dropdown-item")
+                  option(value="seafood" class="dropdown-item")
+              hr
+              button(type="submit" class="btn btn-primary") 提交
           div(class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab")
             div(class="card-columns mt-4")
-              //if currentUser.comments.length > 0
-              //  - for (let i = 0; i < currentUser.comments.length; i++)
-              //    div(class="card")
-              //      //- img(class="card-img-top" src=currentUser.comments[i].menu.albums alt="currentUser.comments[i].menu.albums")
-              //      div(class="card-body")
-              //        //- h5(class="card-title") 评论对象：#{ currentUser.comments[i].menu.title }
-              //        p(class="") 评论内容：
-              //        != currentUser.comments[i].content
-              //        a(class="btn btn-success" href=`/detail/${currentUser.comments[i].menuId}#commentArea`) 查看
-              //else
+              if comments.length > 0
+                - for (let i = 0; i < comments.length; i++)
+                  div(class="card")
+                    //- img(class="card-img-top" src=currentUser.comments[i].menu.albums alt="currentUser.comments[i].menu.albums")
+                    div(class="card-body")
+                      div(class="row")
+                      // - h5(class="card-title") 评论对象：#{ comments[i].menu.title }
+                      p(class="") 评论内容：
+                      != comments[i].comment
+                      div(class="col")
+                      a(class="btn btn-success" href=`/detail/${comments[i].menuId}#commentArea`) 查看
+              else
                 p 未发表食谱评论
 

@@ -1,10 +1,12 @@
 const express = require('express');
 // const multer  = require('multer');
-const qiniu = require('qiniu');
+// const qiniu = require('qiniu');
 const path = require('path');
+var fs = require("fs");
+var formidable = require('formidable');
 
 const router = express.Router();
-const { User, Menu, Article, UserMenu } = require('../models/index');
+const { User, Menu, UserMenu, Comment } = require('../models/index');
 const { PLEASE_LOGIN, GENDER_ERROR, UPDATE_SUCCESS, QINIU_DOMAIN } = require('../utilities/const');
 // const upload = multer({
 // 	dest: 'uploads/',
@@ -144,7 +146,12 @@ router.get('/0', function(req, res) {
                             let menu = rsp.data;
                             menus.push(menu)
                         });
-                        res.render('user', {menus: menus});
+
+                        Comment.findCommentsByAccount(req.session.user.account).then(rsp => {
+                            let comments = rsp.data;
+                            res.render('user', {menus: menus, comments: comments});
+						});
+
                     }
                 ).catch(e =>{console.log(e)})
             }
@@ -155,108 +162,37 @@ router.get('/0', function(req, res) {
 	}
 });
 
-router.get('/:id', function(req, res) {
-	const { id } = req.params;
-	res.locals.followingDisabled = false;
-
-	if (req.session.user) {
-		req.session.user.following.map(value => {
-			if (value.id === parseInt(id)) {
-				res.locals.followingDisabled = true;
-			}
-		});
-	}
-
-	User.findById(id)
-		.then(user => {
-			if (!user) {
-				req.flash('error', '用户不存在！');
-				res.redirect('/user');
-			} else {
-				res.locals.currentUser = user.dataValues;
-				res.locals.currentUser.following = [];
-				res.locals.currentUser.followers = [];
-				res.locals.currentUser.comments = [];
-				res.locals.currentUser.collections = [];
-				res.locals.currentUser.collectedArticles = [];
-				res.locals.currentUser.articles = [];
-				res.locals.currentUser.articleComments = [];
-
-				user.getMenus().then(menus => {
-					menus.map((value, index) => {
-						res.locals.currentUser.collections.push(menus[index]);
-					});
-					res.locals.removeVisiable = false;
-					user.getFollowing().then(followings => {
-						followings.map((value) => {
-							res.locals.currentUser.following.push(value);
-						});
-						user.getFollowers().then(followers => {
-							followers.map((value) => {
-								res.locals.currentUser.followers.push(value);
-							});
-
-							user.getArticles().then(collectedArticles => {
-								collectedArticles.map(value => {
-									res.locals.currentUser.collectedArticles.push(value.dataValues);
-								});
-								Article.findAll({
-									where: { userId: res.locals.currentUser.id}
-								}).then(articles => {
-									articles.map(value => {
-										res.locals.currentUser.articles.push(value.dataValues);
-									});
-									user.getArticleComments().then(articleComments => {
-										if (articleComments.length === 0) {
-											user.getComments().then(comments => {
-												if (comments.length === 0) {
-													res.render('user');
-												} else {
-													comments.map((value, index) => {
-														res.locals.currentUser.comments[index] = comments[index].dataValues;
-														Menu.findById(comments[index].menuId).then(menu => {
-															res.locals.currentUser.comments[index].menu = menu.dataValues;
-															if (index === comments.length - 1) {
-																res.render('user');
-															}
-														});
-													});
-												}
-											});
-										} else {
-											articleComments.map((value, index) => {
-												res.locals.currentUser.articleComments.push(articleComments[index].dataValues);
-												Article.findById(articleComments[index].articleId).then(article => {
-													res.locals.currentUser.articleComments[index].article = article.dataValues;
-													if (index === articleComments.length - 1) {
-														user.getComments().then(comments => {
-															if (comments.length === 0) {
-																res.render('user');
-															} else {
-																comments.map((value, index) => {
-																	res.locals.currentUser.comments[index] = comments[index].dataValues;
-																	Menu.findById(comments[index].menuId).then(menu => {
-																		res.locals.currentUser.comments[index].menu = menu.dataValues;
-																		if (index === comments.length - 1) {
-																			res.render('user');
-																		}
-																	});
-																});
-															}
-														});
-													}
-												});
-											});
-										}
-									});
-								});
-							});
-
-						});
-					});
-				});
-			}
-		});
+router.post('/add-menu', function (req, res) {
+    var form = new formidable.IncomingForm();
+    form.encoding = 'utf-8';
+    form.uploadDir = path.join(__dirname, '../public');
+    form.keepExtensions = true;//保留后缀
+    form.maxFieldsSize = 2 * 1024 * 1024;
+    form.parse(req, (err, fields, files) => {
+        console.log(fields);
+        var filename = files.pic.name
+		console.log(filename)
+        var nameArray = filename.split('.');
+        var type = nameArray[nameArray.length - 1];
+        var name = '';
+        for (var i = 0; i < nameArray.length - 1; i++) {
+            name = name + nameArray[i];
+        }
+        var date = new Date();
+        var time = '_' + date.getFullYear() + "_" + date.getMonth() + "_" + date.getDay() + "_" + date.getHours() + "_" + date.getMinutes();
+        var avatarName = name + time + '.' + type;
+        var newPath = form.uploadDir + "/" + avatarName;
+        fs.renameSync(files.pic.path, newPath);  //重命名
+        // res.send({data:"/upload/"+avatarName})
+        fields.albums = "/" + avatarName;
+        Menu.create(fields).then((rsp) => {
+            let menuId = rsp.data;
+            res.redirect("/detail/" + menuId);
+        }).catch(e => {
+            console.log(e)
+        })
+    })
 });
+
 
 module.exports = router;

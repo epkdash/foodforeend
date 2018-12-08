@@ -98,6 +98,14 @@ const Menu = {
             url: BASE_URL + '/menus/type/' + type,
             headers: {'Accept': 'application/json'}
         })
+    },
+    create: function (data) {
+        return axios({
+            method: 'post',
+            data: data,
+            url: BASE_URL + '/menu',
+            headers: {'Accept': 'application/json'}
+        })
     }
 };
 const User = {
