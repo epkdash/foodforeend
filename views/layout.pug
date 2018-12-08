@@ -9,15 +9,15 @@ html(lang="en")
     link(rel="shortcut icon" href="/favicon.ico" type="image/x-icon")
     link(rel="bookmark" href="/favicon.ico")
     link(rel="stylesheet" href="/css/bootstrap.min.css")
-    link(rel="stylesheet" href="/summernote/summernote-bs4.css")
+    //link(rel="stylesheet" href="/summernote/summernote-bs4.css")
     link(rel="stylesheet" href="/css/main.css")
-    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
+    script(src="/js/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
     script(src="/js/jquery-3.3.1.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
+    script(src="/js/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
     script(src="/js/bootstrap.min.js")
-    script(src="https://unpkg.com/sweetalert/dist/sweetalert.min.js")
-    script(src="/summernote/summernote-bs4.js")
-    script(src="/summernote/lang/summernote-zh-CN.js")
+    script(src="/js/sweetalert.min.js")
+    //script(src="/summernote/summernote-bs4.js")
+    //script(src="/summernote/lang/summernote-zh-CN.js")
     block title
     //- title 小当家——你的私人食谱
   body
@@ -60,7 +60,7 @@ html(lang="en")
                   span(class="font-weight-bold") #{ navUsername } &nbsp;
                   //img(src=navAvatar alt="navAvatar" style="width: 2rem")
                 div(class="dropdown-menu" aria-labelledby="audience")
-                  //a(class="dropdown-item" href="/user/0") 个人中心
+                  a(class="dropdown-item" href="/user/0") 个人中心
                   //a(class="dropdown-item" href="/article/0") 发表文章
                   //a(class="dropdown-item" href="/user/setting") 设置
                   a(class="dropdown-item text-danger" href="/logout") 退出登录

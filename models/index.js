@@ -119,8 +119,54 @@ const User = {
         })
     },
 };
-const Captcha = {};
-// const Comment = {};
+// const Captcha = {};
+const UserMenu = {
+    findRelations: function (account) {
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/relation/' + account,
+            headers: {'Accept': 'application/json'}
+        })
+    },
+    findRelation: function ({account, menuId}) {
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/relation/' + account + '/' + menuId,
+            headers: {'Accept': 'application/json'}
+        })
+    },
+    createRelation: function ({account, menuId}) {
+        return axios({
+            method: 'post',
+            url: BASE_URL + '/relation/' + account + '/' + menuId,
+            headers: {'Accept': 'application/json'}
+        })
+    },
+};
+const Comment = {
+    findCommentsByMenuId: function (menuId) {
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/comment/menuId/' + menuId,
+            headers: {'Accept': 'application/json'}
+        })
+    },
+    findCommentsByAccount: function (account) {
+        return axios({
+            method: 'get',
+            url: BASE_URL + '/comment/account/' + account,
+            headers: {'Accept': 'application/json'}
+        })
+    },
+    createComment: function ({account, menuId, comment}) {
+        return axios({
+            method: 'post',
+            url: BASE_URL + '/comment/' + account + '/' + menuId,
+            data: comment,
+            headers: {'Accept': 'application/json'}
+        })
+    },
+};
 // const Article = {};
 // const ArticleComment = {};
 // const UserMenu = {};
@@ -130,9 +176,10 @@ const Captcha = {};
 
 module.exports = {
     User,
-    Captcha,
-    Menu
-    // Comment,
+    Menu,
+    UserMenu,
+    Comment,
+    // Captcha,
     // Article,
     // ArticleComment,
     // UserMenu,
