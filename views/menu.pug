@@ -1,7 +1,7 @@
 extends layout
 
 block title
-  title 菜谱 —— 食谱网
+  title Menu —— Recipes net
 
 block content
   div(class="container")
@@ -59,10 +59,10 @@ block content
     //  ul(class="pagination justify-content-center")
     //    if offset === 0
     //      li(class="page-item disabled")
-    //        a(class="page-link" href=`/menu/${offset}` tabindex="-1") 上一页
+    //        a(class="page-link" href=`/menu/${offset}` tabindex="-1") Previous page
     //    else
     //      li(class="page-item")
-    //        a(class="page-link" href=`/menu/${offset-100}` tabindex="-1") 上一页
+    //        a(class="page-link" href=`/menu/${offset-100}` tabindex="-1") Next page
     //
     //    if totalNumPage >= 20
     //      if offset < 300
@@ -103,7 +103,7 @@ block content
     //
     //    if offset === (i-1) * 100
     //      li(class="page-item disabled")
-    //        a(class="page-link" href="#") 下一页
+    //        a(class="page-link" href="#") Next page
     //    else
     //      li(class="page-item")
-    //        a(class="page-link" href=`/menu/${offset + 100}`) 下一页
+    //        a(class="page-link" href=`/menu/${offset + 100}`) Next page
