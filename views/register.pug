@@ -6,19 +6,19 @@ block content
       div(class="col")
       div(class="col")
         form(action="/register", method="post" id="register")
-          h5 注册
+          h5 Register
           input(type="email" class="form-control my-2" id="email" name="email" required autofocus="autofocus" placeholder="E-mail")
-          input(type="text" class="form-control my-2" id="account" name="account" required placeholder="账号（至少五位数）" minlength="5" maxlength="16")
-          input(type="password" class="form-control my-2" id="password" name="password" required placeholder="密码（至少八位数）" minlength="8" maxlength="16")
-          input(type="password" class="form-control my-2" id="passwordConfirm" name="passwordConfirm" required placeholder="确认密码" minlength="8" maxlength="16")
-          input(type="text" class="form-control my-2" name="gender" list="gender" placeholder="性别" minlenght="1" maxlength="1" required)
+          input(type="text" class="form-control my-2" id="account" name="account" required placeholder="Account number（At least five digits）" minlength="5" maxlength="16")
+          input(type="password" class="form-control my-2" id="password" name="password" required placeholder="Password（At least eight digits）" minlength="8" maxlength="16")
+          input(type="password" class="form-control my-2" id="passwordConfirm" name="passwordConfirm" required placeholder="Confirm password" minlength="8" maxlength="16")
+          input(type="text" class="form-control my-2" name="gender" list="gender" placeholder="Gender" minlenght="1" maxlength="1" required)
           datalist(id="gender"  class="dropdown-menu")
-            option(value="男" class="dropdown-item")
-            option(value="女" class="dropdown-item")
+            option(value="Male" class="dropdown-item")
+            option(value="Female" class="dropdown-item")
           hr
-          input(type="text" class="form-control" id="captcha" name="captcha" required placeholder="验证码(区分大小写)")
+          input(type="text" class="form-control" id="captcha" name="captcha" required placeholder="Verification code (case sensitive)")
           != captcha.data 
-          button(type="submit" class="btn btn-primary") 注册
+          button(type="submit" class="btn btn-primary") Register
       div(class="col") 
 
   script(src="/js/register.js")
