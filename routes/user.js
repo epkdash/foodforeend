@@ -39,96 +39,44 @@ router.get('/', function(req, res) {
 
 router.get('/setting', function(req, res) {
 	if (!req.session.user) {
-		req.flash('error', PLEASE_LOGIN);
+		req.flash('error', 'Login in first.');
 		res.redirect('/');
 	} else {
-		User.findById(parseInt(req.session.user.id)).then(user => {
-			if (!user) {
-				req.flash('error', PLEASE_LOGIN);
-				res.redirect('/');
-			} else {
-				res.render('setting');
-			}
-		});
+        User.findOne(req.session.user.account).then(rsp => {
+            let user = rsp.data
+            if (!user) {
+                req.flash('error', 'User not found!');
+                res.redirect('/');
+            } else {
+                res.render('setting');
+            }
+        }).catch(e => {
+            console.log(e)
+        });
 	}
 });
 
-// router.post('/setting', upload.single('avatar'), function(req, res) {
-// 	const { username, gender, intro} = req.body;
-//
-// 	if (!req.session.user) {
-// 		req.flash('error', PLEASE_LOGIN);
-// 		res.redirect('/login');
-// 	} else if (gender !== '男' && gender !== '女') {
-// 		req.flash('error', GENDER_ERROR);
-// 		res.redirect('/user/setting');
-// 	} else if (typeof req.file === 'undefined') {
-// 		const intGender = gender === '男' ? 1 : 0;
-// 		User.update({
-// 			username,
-// 			gender: intGender,
-// 			intro
-// 		}, {
-// 			where: { id: parseInt(req.session.user.id) }
-// 		}).then(() => {
-// 			User.findById(req.session.user.id).then(user => {
-// 				req.session.user.username = user.dataValues.username;
-// 				req.session.user.gender = user.dataValues.gender;
-// 				req.session.user.intro = user.dataValues.intro;
-//
-// 				req.flash('info', UPDATE_SUCCESS);
-// 				res.redirect('/user/0');
-// 			});
-// 		});
-// 	} else {
-// 		const intGender = gender === '男' ? 1 : 0;
-// 		const mac = new qiniu.auth.digest.Mac(process.env.QINIU_ACCESS_KEY, process.env.QINIU_SECRET_KEY);
-//
-// 		let config = new qiniu.conf.Config();
-// 		config.zone = qiniu.zone.Zone_z2;
-//
-// 		const localFile = path.join(__dirname, '..', req.file.path);
-//
-// 		const formUploader = new qiniu.form_up.FormUploader(config);
-// 		const putExtra = new qiniu.form_up.PutExtra();
-//
-// 		const keyToOverwrite = `avatar/${req.file.filename}.jpg`;
-// 		const options = {
-// 			scope: `${process.env.QINIU_BUCKET}:${keyToOverwrite}`
-// 		};
-// 		const putPolicy = new qiniu.rs.PutPolicy(options);
-// 		const uploadToken = putPolicy.uploadToken(mac);
-//
-// 		formUploader.putFile(uploadToken, keyToOverwrite, localFile, putExtra, (respErr, respBody, respInfo) => {
-// 			if (respErr) {
-// 				throw respErr;
-// 			}
-// 			if (respInfo.statusCode == 200) {
-// 				User.update({
-// 					username,
-// 					gender: intGender,
-// 					avatar: QINIU_DOMAIN + keyToOverwrite,
-// 					intro
-// 				}, {
-// 					where: { id: parseInt(req.session.user.id) }
-// 				}).then(() => {
-// 					User.findById(req.session.user.id).then(user => {
-// 						req.session.user.username = user.dataValues.username;
-// 						req.session.user.gender = user.dataValues.gender;
-// 						req.session.user.intro = user.dataValues.intro;
-// 						req.session.user.avatar = user.dataValues.avatar;
-//
-// 						req.flash('info', UPDATE_SUCCESS);
-// 						res.redirect('/user/0');
-// 					});
-// 				});
-// 			} else {
-// 				req.flash('info', UPDATE_SUCCESS);
-// 				res.redirect('back');
-// 			}
-// 		});
-// 	}
-// });
+router.post('/change-setting', function(req, res) {
+	const {username, gender, intro} = req.body;
+
+	if (!req.session.user) {
+		req.flash('error', 'Login in first.');
+		res.redirect('/login');
+	} else if (gender !== 'Male' && gender !== 'Female') {
+		req.flash('error', 'Gender must be chosen between men and women. ');
+		res.redirect('/user/setting');
+	} else {
+		const nGender = gender === 'Male' ? 'M' : 'F';
+        let param = {account: req.session.user.account, username, gender: nGender, intro};
+        User.update(param).then(() => {
+            req.session.user.username = username;
+            req.session.user.gender = nGender;
+            req.session.user.intro = intro;
+            res.redirect('/user/0');
+        });
+	}
+
+});
 
 router.get('/0', function(req, res) {
     let menus = [];

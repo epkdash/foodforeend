@@ -1,38 +1,29 @@
-//extends layout
-//
-//block title
-//  title Change your profile  —— Master of cuisine
-//
-//block content
-//  div(class="container")
-//    div(class="row")
-//      div(class="col")
-//        h5(class="text-center") Change your profile
-//        hr
-//    div(class="row")
-//      div(class="col")
-//      div(class="col")
-//        form(action="/user/setting" method="post" enctype="multipart/form-data")
-//          label(for="username") Username
-//          input(class="form-control" type="text" name="username" id="username" value=currentUser.username)
-//          hr
-//          label(for="username") Gender
-//          input(class="form-control" type="text" list="gender-list" name="gender" id="gender")
-//          datalist(id="gender-list")
-//            option(value="Male")
-//            option(value="Female")
-//          hr
-//          div(class="row")
-//            div(class="col-11")
-//              label(for="avatar" class="btn btn-primary") Click to select upload head portrait(PNG, JPG)
-//            //- img(src=navAvatar alt="navAvatar" width="100%" srcset="")
-//            div(class="col-1")
-//              input(class="" type="file" name="avatar" id="avatar" accept=".jpg, .jpeg, .png")
-//          div(id="avatarPreview")
-//            p No file selected
-//          hr
-//          label(for="username") Individual resume
-//          textarea(class="form-control" type="text" name="intro" id="intro") #{ currentUser.intro }
-//          input(type="submit" class="btn btn-primary my-2" value="Submit")
-//      div(class="col")
-//  script(src="/js/setting.js")
+extends layout
+
+block title
+  title Change your profile  —— Master of cuisine
+
+block content
+  div(class="container")
+    div(class="row")
+      div(class="col")
+        h5(class="text-center") Change your profile
+        hr
+    div(class="row")
+      div(class="col")
+      div(class="col")
+        form(action="/user/change-setting" method="post")
+          label(for="username") Username
+          input(class="form-control" type="text" name="username" id="username" value=currentUser.username)
+          hr
+          label(for="username") Gender
+          input(class="form-control" type="text" list="gender-list" name="gender" id="gender")
+          datalist(id="gender-list")
+            option(value="Male")
+            option(value="Female")
+          hr
+          label(for="username") Individual resume
+          textarea(class="form-control" type="text" name="intro" id="intro") #{ currentUser.intro }
+          input(type="submit" class="btn btn-primary my-2" value="Submit")
+      div(class="col")
+  script(src="/js/setting.js")

@@ -126,6 +126,14 @@ const User = {
             headers: {'Accept': 'application/json'}
         })
     },
+    update: function (data) {
+        return axios({
+            method: 'put',
+            data: data,
+            url: BASE_URL + '/user',
+            headers: {'Accept': 'application/json'}
+        })
+    },
 };
 // const Captcha = {};
 const UserMenu = {
