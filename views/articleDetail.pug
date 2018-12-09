@@ -1,7 +1,7 @@
 //extends layout
 //
 //block title
-//	title 文章详情 —— 小当家
+//	title Article details—— Master of cuisine
 //
 //block content
 //	div(class="container")
@@ -19,21 +19,21 @@
 //							a(href=`/article/collect?articleId=${article.id}` class="btn btn-danger w-50")
 //								img(src="/svg/review.svg" alt="/svg/review.svg" style="width: 2rem")
 //								| &nbsp;
-//								span(class="align-middle") 收藏
+//								span(class="align-middle") Collection
 //						else if currentUser && collectDisabled
 //							button(disabled class="btn btn-danger w-50")
 //								img(src="/svg/review.svg" alt="/svg/review.svg" style="width: 2rem")
 //								| &nbsp;
-//								span(class="align-middle") 已收藏
+//								span(class="align-middle") Collected
 //						else
 //							button(disabled class="btn btn-danger w-50")
 //								img(src="/svg/review.svg" alt="/svg/review.svg" style="width: 2rem")
 //								| &nbsp;
-//								span(class="align-middle") 登录后收藏
+//								span(class="align-middle") Collect after login
 //			div(class="col-8")
 //				h6
 //					img(src="/svg/ingredient.svg" alt="/svg/ingredient.svg" style="width: 1.5rem")
-//					| &nbsp;&nbsp;文章简介：
+//					| &nbsp;&nbsp;Introduction of the article：
 //				hr
 //				p(style="overflow: auto") #{ article.intro }
 //				- for (var i = 0; i < article.tags.split(';').length; i++)
@@ -44,12 +44,12 @@
 //					img(src=poster.avatar alt="poster.avatar" style="width: 2rem")
 //					| &nbsp;&nbsp;
 //					a(class="font-weight-bold" style="font-size: 1.2rem" href=`/user/${poster.id}`)!= poster.username
-//					| &nbsp;发表于
+//					| &nbsp;Published in
 //					span!= article.createdAt
 //		hr
 //		div(style="overflow: auto")!= article.content
 //		hr
-//		h4 分享本页
+//		h4 Share this page
 //		.addthis_inline_share_toolbox
 //		hr
 //		if currentUser
@@ -62,14 +62,14 @@
 //							label(for="comment-content")
 //								h4
 //									img(src="/svg/chat.svg" alt="/svg/chat.svg" style="width: 2rem")
-//									| &nbsp;吐个槽？
+//									| &nbsp;Have a comments？
 //							textarea(type="text" class="form-control" id="comment-content" name="commentContent")
-//						input(class="btn btn-primary" type="submit" value="发表评论" )
+//						input(class="btn btn-primary" type="submit" value="Comment" )
 //				div(class="col-2")
 //		else
 //			div(class="alert alert-danger text-center")
-//				a(href="/login") 登录
-//				span 后即可发表评论
+//				a(href="/login") Log in
+//				span before comment
 //
 //		- for (var x = 0; x < errors.length; x++)
 //			div(class="alert alert-danger text-center" role="alert") #{ errors[x] }
@@ -79,7 +79,7 @@
 //		div(class="row")
 //			div(class="col-2")
 //			div(class="col-8")
-//				h4(id="commentArea") 评论区
+//				h4(id="commentArea") Comments
 //				hr
 //				- for (let i = 0; i < comments.length; i++)
 //					div(class="row")
@@ -90,7 +90,7 @@
 //					div(class="row")
 //						div(class="col")
 //							p!= comments[i].content
-//							span(class="font-weight-light text-secondary") #{ i+1 } 楼
+//							span(class="font-weight-light text-secondary") #{ i+1 } Floors
 //							span(class="font-weight-light text-secondary") #{ comments[i].createdAt}
 //					hr
 //			div(class="col-2")
