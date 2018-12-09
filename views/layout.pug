@@ -4,8 +4,8 @@ html(lang="en")
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0, shrink-to-fit=no")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    //meta(name="Keywords" Content="Express, 小当家, 食谱, 菜谱")
-    //mata(name="Description" Content="一个使用 Express 搭建的菜谱网站")
+    //meta(name="Keywords" Content="Express, Master of cuisine, Recipe")
+    //mata(name="Description" Content="A recipe site built using Express")
     link(rel="shortcut icon" href="/favicon.ico" type="image/x-icon")
     link(rel="bookmark" href="/favicon.ico")
     link(rel="stylesheet" href="/css/bootstrap.min.css")
@@ -19,7 +19,7 @@ html(lang="en")
     //script(src="/summernote/summernote-bs4.js")
     //script(src="/summernote/lang/summernote-zh-CN.js")
     block title
-    //- title 小当家——你的私人食谱
+    //- title Master of cuisine——Your personal recipe
   body
     nav(class="navbar navbar-expand-lg navbar-light bg-light fixed-top" role="navigation")
       div(class="container")
@@ -28,7 +28,7 @@ html(lang="en")
             span(class="navbar-toggler-icon")
           a(class="navbar-brand" href="/")
             img(width=42 src="/favicon.svg" alt="/favicon.svg")
-            | 食谱网
+            | Recipe net
         div(class="navbar-collapse collapse in" id="navbarSupportedContent" aria-expanded="true")
           ul(class="navbar-nav mr-auto")
             li(class="nav-item")
@@ -48,10 +48,10 @@ html(lang="en")
                 img(src="/svg/chef.svg" alt="/svg/chef.svg" style="width: 1.5rem")
                 | &nbsp;Contact us
           form(class="form-inline my-auto mr-2" action="/search" method="get")
-            input(class="form-control mr-sm-2"  type="search" placeholder="请输入要搜索的菜名" aria-label="Search" name="foodName" required)
+            input(class="form-control mr-sm-2"  type="search" placeholder="Please enter the name of the dish you want to search" aria-label="Search" name="foodName" required)
             //input(type="hidden" name="pn" value=0)
-            button(class="btn btn-outline-success my-2 my-sm-0" type="submit") 搜索
-          //a(class="btn btn-outline-success mr-5" href="/random") 试试手气
+            button(class="btn btn-outline-success my-2 my-sm-0" type="submit") Search
+          //a(class="btn btn-outline-success mr-5" href="/random") Try！
 
           ul(class="navbar-nav mr-2")
             if navUsername
@@ -60,14 +60,14 @@ html(lang="en")
                   span(class="font-weight-bold") #{ navUsername } &nbsp;
                   //img(src=navAvatar alt="navAvatar" style="width: 2rem")
                 div(class="dropdown-menu" aria-labelledby="audience")
-                  a(class="dropdown-item" href="/user/0") 个人中心
-                  //a(class="dropdown-item" href="/article/0") 发表文章
-                  //a(class="dropdown-item" href="/user/setting") 设置
-                  a(class="dropdown-item text-danger" href="/logout") 退出登录
+                  a(class="dropdown-item" href="/user/0") Personal center
+                  //a(class="dropdown-item" href="/article/0") Published an article
+                  //a(class="dropdown-item" href="/user/setting") Setting
+                  a(class="dropdown-item text-danger" href="/logout") Lay out
             else
               li(class="nav-item mr-auto") 
-                a(class="btn btn-outline-primary" href="/login") 登录
-                //- a(class="btn btn-outline-success ml-2" href="/register") 注册
+                a(class="btn btn-outline-primary" href="/login") Log in
+                //- a(class="btn btn-outline-success ml-2" href="/register") Register
 
     p(style="height: 80px")
     - for (var x = 0; x < errors.length; x++) 
