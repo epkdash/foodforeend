@@ -1,7 +1,7 @@
 extends layout
 
 block title
-  title 菜谱详情 —— 食谱网
+  title Recipe details —— Recipe net
 
 block content
   div(class="container")
@@ -19,26 +19,26 @@ block content
               a(href=`/detail/add-user-menu/${result.id}` class="btn btn-danger w-50")
                 img(src="/svg/review.svg" alt="/svg/review.svg" style="width: 2rem")
                 | &nbsp;
-                span(class="align-middle") 收藏
+                span(class="align-middle") Collection
             else if currentUser && collectDisabled
               button(disabled class="btn btn-danger w-50")
                 //- a(href=`/collect?userId=null&menuId=${result.id}`)
                 img(src="/svg/review.svg" alt="/svg/review.svg" style="width: 2rem")
                 | &nbsp;
-                span(class="align-middle") 已收藏
+                span(class="align-middle") Collected
             else
               button(disabled class="btn btn-danger w-50")
                 //- a(href=`/collect?userId=null&menuId=${result.id}`)
                 img(src="/svg/review.svg" alt="/svg/review.svg" style="width: 2rem")
                 | &nbsp;
-                span(class="align-middle") 登录后收藏
+                span(class="align-middle") Collect after login
       div(class="col-8")
         h6
           img(src="/svg/ingredient.svg" alt="/svg/ingredient.svg" style="width: 1.5rem")
-          | &nbsp;&nbsp;原料：#{ result.ingredients }
+          | &nbsp;&nbsp;Main ingredient：#{ result.ingredients }
         h6
           img(src="/svg/salt-and-pepper.svg" alt="/svg/salt-and-pepper.svg" style="width: 1.5rem")
-          | &nbsp;&nbsp;佐料：#{ result.burden }
+          | &nbsp;&nbsp;Auxiliary ingredien：#{ result.burden }
         hr
         p #{ result.imtro }
         - for (var i = 0; i < result.tags.length; i++)
@@ -59,7 +59,7 @@ block content
     div(class="row")
       div(class="col-2")
       div(class="col-8")
-        h4(id="commentArea") 评论区
+        h4(id="commentArea") Comments
         hr
         - for (let i = 0; i < comments.length; i++)
           div(class="row")
@@ -69,7 +69,7 @@ block content
             div(class="col")
               p
                 != comments[i].content
-              span(class="font-weight-light text-secondary") #{ i + 1 } 楼
+              span(class="font-weight-light text-secondary") #{ i + 1 } Floors
               span(class="font-weight-light text-secondary") #{ comments[i].createdAt}
           hr
       div(class="col-2")
@@ -84,14 +84,14 @@ block content
               label(for="comment-content")
                 h4
                   img(src="/svg/chat.svg" alt="/svg/chat.svg" style="width: 2rem")
-                  | &nbsp;对这个菜谱有何想法
+                  | &nbsp;Idea about this recipe
               textarea(type="text" class="form-control" id="comment" name="comment")
-            input(class="btn btn-primary" type="submit" value="发表评论" )
+            input(class="btn btn-primary" type="submit" value="Comment" )
         div(class="col-2")
     else
       div(class="alert alert-danger text-center")
-        a(href="/login") 登录
-        span 后即可发表评论
+        a(href="/login") Log in
+        span before comments
     hr
     - for (var x = 0; x < errors.length; x++)
       div(class="alert alert-danger text-center" role="alert") #{ errors[x] }
