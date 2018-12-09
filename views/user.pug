@@ -1,7 +1,7 @@
 extends layout
 
 block title
-  title 我的 —— 食谱网
+  title MY —— Recipes net
 
 block content
   div(class="container")
@@ -16,39 +16,39 @@ block content
           else if currentUser.gender === 'F'
             img(class="mx-1" src="/femenine.svg" alt="/femenine.svg" style="width: 1rem")
           else
-            span(class="font-weight-light") 未知性别
+            span(class="font-weight-light") Unknown gender
         div(class="font-weight-light")
           img(src="/envelope.svg" alt="/envelope.svg" style="width: 1rem")
           span(class="mx-1") #{ currentUser.email }
           //if currentUser.confirmed
-          //  span(class="badge badge-success") 已验证
+          //  span(class="badge badge-success") Authenticated
           //else
-          //  span(class="badge badge-danger") 未验证
+          //  span(class="badge badge-danger") Authenticated
         //div(class="card-text")
-        //  | 关注
+        //  | Follow 
         //  span(id="followingNum" class="text-info") #{ currentUser.following ? currentUser.following.length: 0 }
-        //  | 粉丝
+        //  | Followers
         //  span(class="text-info") #{ currentUser.followers ? currentUser.followers.length: 0}
         p #{ currentUser.intro }
           //if !currentUser.confirmed
-          //  div(class="alert alert-danger" role="alert") 未验证邮箱，请尽快验证！验证后请重新登录
+          //  div(class="alert alert-danger" role="alert") Mailbox not verified. Please verify as soon as possible! Please login again after verification
       //div(class="col-3")
       //  if currentUser && !followingDisabled
-      //    a(href=`/following?followingId=${currentUser.id}` class="btn btn-primary w-75") 关注
+      //    a(href=`/following?followingId=${currentUser.id}` class="btn btn-primary w-75") Follow
       //  else if currentUser && followingDisabled
-      //    button(disabled class="btn btn-primary w-75") 已关注
+      //    button(disabled class="btn btn-primary w-75") Following
       //  else
-      //    button(disabled class="btn btn-primary w-75") 登录后关注
+      //    button(disabled class="btn btn-primary w-75") Follow after login
     hr
     div(class="row text-center")
       div(class="col")
         ul(class="nav nav-tabs" id="myTab" role="tablist")
           li(class="nav-item")
-            a(class="nav-link active" id="collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="collection" aria-selected="true") 收藏食谱
+            a(class="nav-link active" id="collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="collection" aria-selected="true") Collect recipes
           li(class="nav-item")
-            a(class="nav-link" id="uploadMenu-tab" data-toggle="tab" href="#updateMenu" role="tab" aria-controls="updateMenu" aria-selected="false") 上传食谱
+            a(class="nav-link" id="uploadMenu-tab" data-toggle="tab" href="#updateMenu" role="tab" aria-controls="updateMenu" aria-selected="false") Upload recipes
           li(class="nav-item")
-            a(class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false") 食谱评论
+            a(class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="false") Review recipes
         div(class="tab-content" id="myTabContent")
           div(class="tab-pane fade show active" id="collection" role="tabpanel" aria-labelledby="collection-tab")
             div(class="card-columns mt-4")
@@ -61,15 +61,15 @@ block content
                       div(class="row")
                         if removeVisiable
                           div(class="col")
-                            a(href=`/detail/${menus[i].id}` class="btn btn-success") 查看
+                            a(href=`/detail/${menus[i].id}` class="btn btn-success") View
                           div(class="col")
-                            input(id=`remove${i}` type="button" class="btn btn-danger" value="移除"
-                            onclick='$.ajax({ url: "/usermenus", method: "DELETE", data: { userId: ' + currentUser.id + ', menuId: ' + menus[i].id + '}, timeout: 2000, error: function(data) { swal("哎呀!", "移除失败！", "error");} }).done(function() { $("#remove' + i + '").parent().parent().parent().parent().fadeTo("slow", 0.1, function() { $(this).slideUp("slow", function() { $(this).remove(); }) }); });')
+                            input(id=`remove${i}` type="button" class="btn btn-danger" value="Remove"
+                            onclick='$.ajax({ url: "/usermenus", method: "DELETE", data: { userId: ' + currentUser.id + ', menuId: ' + menus[i].id + '}, timeout: 2000, error: function(data) { swal("OH!", "Failed！", "error");} }).done(function() { $("#remove' + i + '").parent().parent().parent().parent().fadeTo("slow", 0.1, function() { $(this).slideUp("slow", function() { $(this).remove(); }) }); });')
                         else
                           div(class="col")
-                            a(href=`/detail/${menus[i].id}` class="btn btn-success") 查看
+                            a(href=`/detail/${menus[i].id}` class="btn btn-success") View
               else
-                p 没有收藏食谱
+                p No recipe collection
           div(class="tab-pane fade" id="updateMenu" role="tabpanel" aria-labelledby="updateMenu-tab")
             form(action="/user/add-menu", method="post", enctype="multipart/form-data")
               div(class="form-group")
@@ -79,7 +79,7 @@ block content
                 label(for="title") title
                 input(type="text" class="form-control" id="title" name="title" required minlength="1" maxlength="50")
               div(class="form-group")
-                label(for="tags") tags 用英文逗号分隔
+                label(for="tags") tags Separated by English symbols
                 input(type="text" class="form-control" id="tags" name="tags" maxlength="100" autofocus="autofocus")
               div(class="form-group")
                 label(for="imtro") introduction
@@ -91,7 +91,7 @@ block content
                 label(for="burden") burden
                 input(type="text" class="form-control" id="burden" name="burden" maxlength="100" autofocus="autofocus")
               div(class="form-group")
-                label(for="steps") steps 步骤之间用英文逗号分隔
+                label(for="steps") steps Separated by English symbols among steps
                 input(type="text" class="form-control" id="steps" name="steps" maxlength="100" autofocus="autofocus")
               div(class="form-group")
                 label(for="type") type
@@ -108,7 +108,7 @@ block content
                   option(value="meat" class="dropdown-item")
                   option(value="seafood" class="dropdown-item")
               hr
-              button(type="submit" class="btn btn-primary") 提交
+              button(type="submit" class="btn btn-primary") Submit
           div(class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab")
             div(class="card-columns mt-4")
               if comments.length > 0
@@ -117,11 +117,11 @@ block content
                     //- img(class="card-img-top" src=currentUser.comments[i].menu.albums alt="currentUser.comments[i].menu.albums")
                     div(class="card-body")
                       div(class="row")
-                      // - h5(class="card-title") 评论对象：#{ comments[i].menu.title }
-                      p(class="") 评论内容：
+                      // - h5(class="card-title") Comment object：#{ comments[i].menu.title }
+                      p(class="") Comment contents：
                       != comments[i].comment
                       div(class="col")
-                      a(class="btn btn-success" href=`/detail/${comments[i].menuId}#commentArea`) 查看
+                      a(class="btn btn-success" href=`/detail/${comments[i].menuId}#commentArea`) View
               else
-                p 未发表食谱评论
+                p No recipe comments
 
