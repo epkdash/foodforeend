@@ -20,7 +20,7 @@ router.post('/', function (req, res) {
     } else if (password !== passwordConfirm) {
         req.flash('error', '两次密码不一致');
         res.redirect('/register');
-    } else if (gender !== '男' && gender !== '女') {
+    } else if (gender !== 'Male' && gender !== 'Female') {
         req.flash('error', '性别有误！');
         res.redirect('/register');
     } else if (!(/^[a-zA-Z0-9]{5,16}$/.test(account))) {
@@ -37,7 +37,7 @@ router.post('/', function (req, res) {
                     res.redirect('/register');
                 } else {
                     // const avatar = gender === '男' ? AVATAR_BOY : AVATAR_GIRL;
-                    const strGender = gender === '男' ? 'M' : 'F';
+                    const strGender = gender === 'Male' ? 'M' : 'F';
 
                     User.create({
                         email,
